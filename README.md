@@ -1,15 +1,18 @@
 # TTS-Flask-ML
-Converts text files to audio speech files. Uses pyttsx3 and wrapped by flask-ml.
+
+![Sample CLI Run](assets/sample_cli_run.png)
+
+Converts text files to audio speech files. Uses pyttsx3 and wrapped by Flask-ML.
 
 ## Setup
-**1. Install pipenv and start virtual env**
+**1. Install pipenv and Start Virtual Environment**
 ```
 pip install pipenv
 ```
 ```
 pipenv shell
 ```
-**2. Install dependencies**
+**2. Install Dependencies**
 
 via pipenv
 ```
@@ -19,55 +22,69 @@ or
 
 via requirements.txt
 
-*for windows*
+*Windows*
 ``` 
 pip install -r requirements-win.txt
 ``` 
-*for mac*
+*MacOS*
 ``` 
 pip install -r requirements-mac.txt
 ``` 
 
 ## Flask-ML
-**Starting server**
+**Starting Server**
 ```
 python -m tts_flask_ml.server.server
 ```
-**Client example**
+**Client Example**
 
-*update the inputs on the file before running*
+*Update the inputs on the file before running.*
 ```
 python -m flask_client_test
 ```
 
-## Command line Interface
+## Command Line Interface (Run from Root)
 
-**Convert one or more files**
+**Convert One or More Text Files**
+
+Sample Command:
 ```
-python tts_converter_cli.py --text_files ./text_1.txt ./text_2.txt
-```
-```
-python tts_converter_cli.py -t ./text_1.txt
+python cli.py tts_converter_files --input_files tts_flask_ml\test\words_100.txt tts_flask_ml\test\words_9999.txt --output_dir ./output
 ```
 
-**Convert all text files in a directory**
-```
-python tts_converter_cli.py --input_dir ./inputs
-```
-```
-python tts_converter_cli.py -i ./inputs
-```
-> the input file names are continued for outputs and are stored in the same directory unless a output directory is specified like below
-</br>
+**Convert All Text Files in Directory**
 
-**Optional - Specify output directory/audio format**
+Sample Command:
 ```
-python tts_converter_cli.py --input_dir ./inputs --output_dir ./out --audio_format wav
+python cli.py tts_converter_dir --input_dir tts_flask_ml\test --output_dir ./output
 ```
+
+**Optional - Specify Audio Format**
+
+Sample Command:
 ```
-python tts_converter_cli.py -t ./text_1.txt -o ./out -f wav
+python cli.py tts_converter_dir --input_dir tts_flask_ml\test --output_dir ./output --audio_format wav
 ```
-> do not use mp3 format on macOS, default on mac is aiff and default on other systems is mp3
+
+These CLI arguments can be tweaked as follows:
+
+Option: `tts_converter_files`
+- `input_files`: List of space-separated file paths referring to text files you want to convert.
+- `output_dir`: Path to directory where you want to save the resulting audio files.
+- `audio_format`: Format of resulting audio files (must be one of `mp3`, `aiff`, or `wav`).
+
+Option: `tts_converter_dir`
+- `input_dir`: Path to directory containing the text files you want to convert.
+- `output_dir`: Path to directory where you want to save the resulting audio files.
+- `audio_format`: Format of resulting audio files (must be one of `mp3`, `aiff`, or `wav`).
+
+> Do not use `mp3` format on macOS. Default on mac is `aiff` and default on other systems is `mp3`.
+
+**Run Test Suite**
+```
+cd tts_flask_ml/test
+python -m pytest
+```
 
 
 
